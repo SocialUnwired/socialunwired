@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Unwired — Strategic Communications for Complex Public Issues</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --parchment: #F5F0E8;
+      --ink:       #1C1C1E;
+      --violet:    #6B5B8C;
+      --mauve:     #9E8FAA;
+      --warm-grey: #E8E2D9;
+      --muted:     #8A8277;
+      --white:     #FDFBF8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(245,240,232,0.93);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--warm-grey);
+    }
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-link {
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--ink); }
+    .nav-cta {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--white); background: var(--violet);
+      padding: 11px 22px; text-decoration: none; transition: background 0.2s;
+    }
+    .nav-cta:hover { background: #5a4a78; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 56px 80px;
+      max-width: 1200px; margin: 0 auto;
+      position: relative;
+    }
+    .hero-top {
+      position: absolute; top: 130px; left: 56px; right: 56px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mauve);
+    }
+    .hero-right-note {
+      font-size: 13px; color: var(--muted);
+      text-align: right; max-width: 240px; line-height: 1.55;
+    }
+    .hero-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 7vw, 100px);
+      line-height: 0.96; font-weight: 400;
+      color: var(--ink); letter-spacing: -0.02em;
+    }
+    .hero-headline .italic { font-style: italic; color: var(--violet); }
+    .hero-bottom {
+      margin-top: 48px; padding-top: 36px;
+      border-top: 1px solid var(--warm-grey);
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: end; gap: 40px;
+    }
+    .hero-sub {
+      font-size: 16px; color: var(--muted);
+      max-width: 500px; line-height: 1.75; font-weight: 300;
+    }
+    .hero-niche {
+      font-size: 13px; color: var(--muted);
+      max-width: 500px; margin-top: 12px; line-height: 1.6; font-weight: 300;
+      font-style: italic;
+    }
+    .hero-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .btn-primary {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--white); background: var(--violet);
+      padding: 14px 28px; text-decoration: none;
+      transition: background 0.2s; display: inline-block; white-space: nowrap;
+    }
+    .btn-primary:hover { background: #5a4a78; }
+    .btn-ghost {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--warm-grey);
+      padding: 14px 28px; text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block; white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: var(--mauve); color: var(--ink); }
+
+    /* ── STATS STRIP ── */
+    .stats-strip { background: var(--ink); padding: 0 56px; }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto; display: flex;
+    }
+    .stat-item {
+      flex: 1; padding: 36px 40px 36px 0;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; padding-left: 40px; padding-right: 0; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px; color: #F5F0E8;
+      display: block; line-height: 1; margin-bottom: 6px;
+    }
+    .stat-label { font-size: 12px; color: rgba(245,240,232,0.38); line-height: 1.4; }
+
+    /* ── SHARED SECTION ── */
+    .section { padding: 96px 56px; max-width: 1200px; margin: 0 auto; }
+    .section-header {
+      display: flex; align-items: center; gap: 20px; margin-bottom: 64px;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mauve); white-space: nowrap;
+    }
+    .section-rule { flex: 1; height: 1px; background: var(--warm-grey); }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 46px); font-weight: 400;
+      color: var(--ink); line-height: 1.15; margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 16px; color: var(--muted);
+      max-width: 560px; line-height: 1.75; font-weight: 300;
+    }
+
+    /* ── SERVICES ── */
+    #services { border-top: 1px solid var(--warm-grey); }
+    .services-intro { margin-bottom: 56px; }
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    }
+    .service-card {
+      background: var(--white); padding: 44px;
+      position: relative; transition: box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .service-card:hover { box-shadow: 0 8px 40px rgba(107,91,140,0.1); z-index: 1; }
+    .service-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--warm-grey); transition: background 0.25s;
+    }
+    .service-card:hover .service-accent { background: var(--violet); }
+    .service-card.featured .service-accent { background: var(--violet); }
+    .featured-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--white); background: var(--violet);
+      padding: 4px 10px; margin-bottom: 18px;
+    }
+    .service-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 18px;
+    }
+    .service-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px; color: var(--ink); margin-bottom: 12px; line-height: 1.2;
+    }
+    .service-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.72;
+      font-weight: 300; margin-bottom: 24px; flex: 1;
+    }
+    .service-pain {
+      background: var(--parchment); padding: 16px 20px; margin-bottom: 24px;
+    }
+    .service-pain-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 10px;
+    }
+    .service-pain ul { list-style: none; }
+    .service-pain ul li {
+      font-size: 13px; color: var(--ink); line-height: 1.6;
+      padding: 5px 0; border-bottom: 1px solid var(--warm-grey);
+      display: flex; gap: 10px; font-weight: 300;
+    }
+    .service-pain ul li:last-child { border-bottom: none; }
+    .service-pain ul li::before {
+      content: '→'; color: var(--violet); flex-shrink: 0; font-size: 11px; margin-top: 2px;
+    }
+    .service-includes {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px;
+    }
+    .tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px; letter-spacing: 0.08em;
+      padding: 5px 9px; border: 1px solid var(--warm-grey);
+      color: var(--muted); white-space: nowrap;
+    }
+    .service-footer {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-top: 24px; border-top: 1px solid var(--warm-grey);
+      margin-top: auto;
+    }
+    .service-price {
+      font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--ink);
+    }
+    .service-price-sub {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      color: var(--muted); margin-top: 4px;
+    }
+    .service-cta {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--violet); text-decoration: none;
+      border-bottom: 1px solid rgba(107,91,140,0.3);
+      padding-bottom: 2px; transition: border-color 0.2s;
+    }
+    .service-cta:hover { border-color: var(--violet); }
+
+    /* ── APPROACH ── */
+    #approach { border-top: 1px solid var(--warm-grey); background: var(--white); }
+    .approach-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .approach-step { padding: 44px 40px; background: var(--parchment); }
+    .approach-num {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      color: var(--mauve); margin-bottom: 20px;
+    }
+    .approach-title {
+      font-family: 'DM Serif Display', serif; font-size: 22px;
+      color: var(--ink); margin-bottom: 12px;
+    }
+    .approach-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.68; font-weight: 300;
+    }
+
+    /* ── CASE STUDIES ── */
+    #work { border-top: 1px solid var(--warm-grey); }
+    .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .case-card {
+      background: var(--white); padding: 48px;
+      display: flex; flex-direction: column;
+    }
+    .case-type {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 8px;
+    }
+    .case-title {
+      font-family: 'DM Serif Display', serif; font-size: 24px;
+      color: var(--ink); line-height: 1.2; margin-bottom: 6px;
+    }
+    .case-role {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      color: var(--muted); margin-bottom: 24px;
+    }
+    .case-insight {
+      font-size: 15px; color: var(--ink); line-height: 1.7;
+      font-style: italic; border-left: 2px solid var(--violet);
+      padding-left: 20px; margin-bottom: 24px;
+    }
+    .case-body {
+      font-size: 14px; color: var(--muted); line-height: 1.72;
+      font-weight: 300; margin-bottom: 32px; flex: 1;
+    }
+    .case-outcomes {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: auto;
+    }
+    .outcome-item { background: var(--parchment); padding: 16px 20px; }
+    .outcome-num {
+      font-family: 'DM Serif Display', serif; font-size: 24px;
+      color: var(--violet); line-height: 1; margin-bottom: 4px;
+    }
+    .outcome-label { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+    /* ── WHO WE WORK WITH ── */
+    #clients { border-top: 1px solid var(--warm-grey); background: var(--white); }
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .client-item {
+      padding: 28px 24px; background: var(--parchment);
+      font-size: 14px; color: var(--ink); font-weight: 300;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .client-item::before {
+      content: ''; width: 16px; height: 1px;
+      background: var(--mauve); flex-shrink: 0;
+    }
+
+    /* ── ABOUT ── */
+    #about { border-top: 1px solid var(--warm-grey); }
+    .about-grid {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 96px; align-items: start;
+    }
+    .about-arc { display: flex; gap: 2px; margin-bottom: 40px; }
+    .arc-step {
+      flex: 1; padding: 18px 22px; background: var(--white);
+      border-top: 2px solid var(--warm-grey); transition: border-color 0.2s;
+    }
+    .arc-step:hover { border-color: var(--violet); }
+    .arc-label {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 6px;
+    }
+    .arc-name { font-size: 13px; color: var(--ink); font-weight: 500; }
+    .about-text p {
+      font-size: 16px; color: var(--ink); line-height: 1.82;
+      font-weight: 300; margin-bottom: 20px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .expertise-label {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 20px; margin-top: 36px;
+    }
+    .expertise-label:first-child { margin-top: 0; }
+    .expertise-list { list-style: none; }
+    .expertise-list li {
+      padding: 12px 0; border-bottom: 1px solid var(--warm-grey);
+      font-size: 14px; color: var(--ink);
+      display: flex; align-items: center; gap: 12px; font-weight: 300;
+    }
+    .expertise-list li::before {
+      content: ''; width: 14px; height: 1px;
+      background: var(--mauve); flex-shrink: 0;
+    }
+
+    /* ── INSIGHTS ── */
+    #insights { border-top: 1px solid var(--warm-grey); background: var(--white); }
+    .insights-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: end; margin-bottom: 56px;
+    }
+    .insights-placeholder {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .insight-item {
+      background: var(--parchment); padding: 32px 28px;
+    }
+    .insight-category {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 14px;
+    }
+    .insight-title {
+      font-family: 'DM Serif Display', serif; font-size: 18px;
+      color: var(--ink); line-height: 1.3; margin-bottom: 12px;
+    }
+    .insight-desc {
+      font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300;
+    }
+    .insights-cta {
+      margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--warm-grey);
+      display: flex; justify-content: flex-end;
+    }
+
+    /* ── CTA / CONTACT ── */
+    #contact { background: var(--ink); }
+    .cta-section { padding: 104px 56px; max-width: 1200px; margin: 0 auto; }
+    .cta-eyebrow {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 32px;
+    }
+    .cta-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(34px, 5vw, 64px); font-weight: 400;
+      color: var(--parchment); line-height: 1.1;
+      margin-bottom: 20px; max-width: 680px;
+    }
+    .cta-headline em { font-style: italic; color: var(--mauve); }
+    .cta-sub {
+      font-size: 15px; color: rgba(245,240,232,0.4);
+      margin-bottom: 20px; font-weight: 300; max-width: 480px; line-height: 1.7;
+    }
+    .cta-email {
+      font-family: 'Space Mono', monospace; font-size: 13px;
+      color: var(--mauve); text-decoration: none; display: block;
+      margin-bottom: 48px; transition: color 0.2s;
+    }
+    .cta-email:hover { color: var(--parchment); }
+    .cta-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-light {
+      font-family: 'Space Mono', monospace; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink); background: var(--parchment);
+      padding: 14px 28px; text-decoration: none;
+      transition: background 0.2s; display: inline-block;
+    }
+    .btn-light:hover { background: #fff; }
+
+    /* ── LAND ACKNOWLEDGEMENT ── */
+    .land-ack {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 56px;
+    }
+    .land-ack-inner { max-width: 1200px; margin: 0 auto; }
+    .land-ack-label {
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(245,240,232,0.25); margin-bottom: 12px;
+    }
+    .land-ack-text {
+      font-size: 13px; color: rgba(245,240,232,0.3);
+      line-height: 1.7; font-weight: 300; max-width: 760px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 28px 56px;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Space Mono', monospace; font-size: 11px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(245,240,232,0.22);
+    }
+    .footer-copy { font-size: 12px; color: rgba(245,240,232,0.16); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 0 24px 60px; }
+      .hero-top { left: 24px; right: 24px; }
+      .hero-bottom { grid-template-columns: 1fr; gap: 24px; }
+      .hero-actions { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+      .stats-strip { padding: 0 24px; }
+      .stats-inner { flex-wrap: wrap; }
+      .stat-item {
+        width: 50%; padding: 24px 12px 24px 0;
+        border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07);
+      }
+      .stat-item:nth-child(odd) { padding-left: 0; }
+      .stat-item:last-child { border-bottom: none; }
+      .section { padding: 64px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .work-grid { grid-template-columns: 1fr; }
+      .clients-grid { grid-template-columns: 1fr 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-arc { flex-direction: column; }
+      .insights-intro { grid-template-columns: 1fr; gap: 24px; }
+      .insights-placeholder { grid-template-columns: 1fr; }
+      .cta-section { padding: 72px 24px; }
+      .land-ack { padding: 32px 24px; }
+      footer { padding: 24px; }
+      .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Social Unwired</a>
+    <div class="nav-links">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#work" class="nav-link">Experience</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#insights" class="nav-link">Insights</a>
+      <a href="#contact" class="nav-cta">Start a Conversation →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-top">
+      <span class="hero-eyebrow">Strategic Communications · Narrative Strategy · Campaign Strategy</span>
+      <span class="hero-right-note">For policy, advocacy, climate, AI, and civic organizations that need clearer messaging before a campaign, launch, or public-facing report.</span>
+    </div>
+    <h1 class="hero-headline">
+      Your research<br />
+      isn't the problem.<br />
+      <span class="italic">Your audience isn't<br />acting on it.</span>
+    </h1>
+    <div class="hero-bottom">
+      <div>
+        <p class="hero-sub">Social Unwired is a strategic communications practice that helps organisations communicate complex public issues with clarity, credibility, and purpose.</p>
+        <p class="hero-niche">We work where communication influences public understanding, stakeholder trust, and decision-making — turning complexity into narratives that people understand, trust, and act on.</p>
+      </div>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Start a Conversation →</a>
+        <a href="#services" class="btn-ghost">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-num">10M+</span>
+        <span class="stat-label">People reached through national campaign communications</span>
+      </div>
+      <div class="stat-item" style="padding-left:40px;">
+        <span class="stat-num">20%</span>
+        <span class="stat-label">Platform growth achieved within a single campaign period</span>
+      </div>
+      <div class="stat-item" style="padding-left:40px;">
+        <span class="stat-num">4×</span>
+        <span class="stat-label">Audience growth in one quarter — 500 to 2,000 followers</span>
+      </div>
+      <div class="stat-item" style="padding-left:40px;">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">Comments within 48 hours on high-performing regional content</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Services</span>
+        <div class="section-rule"></div>
+      </div>
+      <div class="services-intro">
+        <h2 class="section-title">Strategic communications for complex public issues</h2>
+        <p class="section-desc">Every engagement starts with understanding the landscape — not assuming it. We develop communication that aligns organisational goals with what audiences are ready to hear.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- AUDIT -->
+        <div class="service-card featured">
+          <div class="service-accent"></div>
+          <div class="featured-badge">Start Here</div>
+          <div class="service-name">Strategic Communications Audit</div>
+          <p class="service-desc">An independent assessment of your current communications — across messaging, channels, audiences, and organisational alignment. The outcome is a clear set of priorities and practical recommendations.</p>
+          <div class="service-pain">
+            <div class="service-pain-title">This audit is for you if</div>
+            <ul>
+              <li>Stakeholders engage with your work but don't act on it</li>
+              <li>Your message is doing too much expert-facing work</li>
+              <li>Campaigns feel inconsistent across channels or teams</li>
+              <li>You want to know what to fix in the next 90 days</li>
+            </ul>
+          </div>
+          <div class="service-includes">
+            <span class="tag">Communications review</span>
+            <span class="tag">Audience assessment</span>
+            <span class="tag">Messaging review</span>
+            <span class="tag">Channel evaluation</span>
+            <span class="tag">Written recommendations</span>
+          </div>
+          <div class="service-footer">
+            <div>
+              <div class="service-price">CAD 1,500</div>
+              <div class="service-price-sub">1 week · Fixed fee</div>
+            </div>
+            <a href="#contact" class="service-cta">Book the Audit →</a>
+          </div>
+        </div>
+
+        <!-- STRATEGY -->
+        <div class="service-card">
+          <div class="service-accent"></div>
+          <div class="service-tag">Strategic Engagement</div>
+          <div class="service-name">Strategic Communications Strategy</div>
+          <p class="service-desc">Build communication around strategy, not assumptions. We identify audience needs, develop narrative frameworks, and create message architecture that aligns organisational goals with public understanding.</p>
+          <div class="service-includes">
+            <span class="tag">Narrative strategy</span>
+            <span class="tag">Audience segmentation</span>
+            <span class="tag">Landscape analysis</span>
+            <span class="tag">Message architecture</span>
+            <span class="tag">Stakeholder comms</span>
+            <span class="tag">Executive comms</span>
+            <span class="tag">Communications planning</span>
+          </div>
+          <div class="service-footer">
+            <div>
+              <div class="service-price">From 3,500</div>
+              <div class="service-price-sub">Scoped per engagement · CAD</div>
+            </div>
+            <a href="#contact" class="service-cta">Enquire →</a>
+          </div>
+        </div>
+
+        <!-- CAMPAIGN -->
+        <div class="service-card">
+          <div class="service-accent"></div>
+          <div class="service-tag">Campaign Engagement</div>
+          <div class="service-name">Campaign Strategy</div>
+          <p class="service-desc">Campaigns require more than content. They require a clear strategy, a shared narrative, and communication that stays consistent from planning through execution — across platforms, audiences, and moments.</p>
+          <div class="service-includes">
+            <span class="tag">Campaign strategy</span>
+            <span class="tag">Campaign messaging</span>
+            <span class="tag">Audience journey mapping</span>
+            <span class="tag">Editorial planning</span>
+            <span class="tag">Content strategy</span>
+            <span class="tag">Public engagement strategy</span>
+            <span class="tag">Measurement frameworks</span>
+          </div>
+          <div class="service-footer">
+            <div>
+              <div class="service-price">From 8,000</div>
+              <div class="service-price-sub">Scoped per engagement · CAD</div>
+            </div>
+            <a href="#contact" class="service-cta">Enquire →</a>
+          </div>
+        </div>
+
+        <!-- PROJECT STRATEGY -->
+        <div class="service-card">
+          <div class="service-accent"></div>
+          <div class="service-tag">Project Engagement</div>
+          <div class="service-name">Project Strategy & Delivery</div>
+          <p class="service-desc">Strong ideas need strong execution. Whether launching a new programme, building a cross-functional team, or developing a multi-partner initiative — we help establish the systems that keep projects aligned, accountable, and moving forward.</p>
+          <div class="service-includes">
+            <span class="tag">Project scoping</span>
+            <span class="tag">Project charters</span>
+            <span class="tag">Governance frameworks</span>
+            <span class="tag">Roles & responsibilities</span>
+            <span class="tag">Implementation planning</span>
+            <span class="tag">Workshop facilitation</span>
+            <span class="tag">Cross-team coordination</span>
+          </div>
+          <div class="service-footer">
+            <div>
+              <div class="service-price">Scoped</div>
+              <div class="service-price-sub">Per engagement · CAD</div>
+            </div>
+            <a href="#contact" class="service-cta">Enquire →</a>
+          </div>
+        </div>
+
+        <!-- ADVISORY -->
+        <div class="service-card" style="grid-column: 1 / -1;">
+          <div class="service-accent"></div>
+          <div class="service-tag">Ongoing Partnership</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+            <div>
+              <div class="service-name">Advisory</div>
+              <p class="service-desc">Strategic communications support for organisations navigating growth, change, or complex public issues. Whether preparing for a major announcement, reviewing messaging, strengthening internal alignment, or responding to emerging issues — we provide ongoing strategic advice tailored to your organisation.</p>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: flex-end;">
+              <div class="service-includes">
+                <span class="tag">Ongoing strategic advice</span>
+                <span class="tag">Messaging review</span>
+                <span class="tag">Issue response</span>
+                <span class="tag">Internal alignment</span>
+                <span class="tag">Announcement support</span>
+              </div>
+              <div class="service-footer">
+                <div>
+                  <div class="service-price">From 2,500</div>
+                  <div class="service-price-sub">Per month · CAD</div>
+                </div>
+                <a href="#contact" class="service-cta">Enquire →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Our Approach</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px;">Every organisation is different.<br />Our approach remains consistent.</h2>
+      <p class="section-desc" style="margin-bottom: 56px;">We don't begin with messaging. We begin with understanding.</p>
+      <div class="approach-grid">
+        <div class="approach-step">
+          <div class="approach-num">01</div>
+          <div class="approach-title">Understand the landscape</div>
+          <p class="approach-desc">We begin by understanding the broader context — organisational priorities, audience dynamics, existing communications, and the political and policy environment shaping how messages land.</p>
+        </div>
+        <div class="approach-step">
+          <div class="approach-num">02</div>
+          <div class="approach-title">Develop the strategy</div>
+          <p class="approach-desc">We identify the narrative challenge, define communication priorities, and develop a strategy that aligns your messaging with organisational goals — and with what your audiences are actually ready to hear.</p>
+        </div>
+        <div class="approach-step">
+          <div class="approach-num">03</div>
+          <div class="approach-title">Support implementation</div>
+          <p class="approach-desc">From strategic advice and campaign development to writing and communications planning — we provide support that fits the scale and needs of your organisation, long after individual campaigns end.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="work">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Experience</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px;">Background in practice</h2>
+      <p class="section-desc" style="margin-bottom: 16px;">The following reflects experience from prior roles, included to demonstrate strategic approach and outcomes.</p>
+      <p class="section-desc" style="margin-bottom: 56px; font-style: italic; font-size: 14px;">Two environments. Different constraints. The same core challenge — moving audiences from passive consumption to active participation.</p>
+
+      <div class="work-grid">
+
+        <div class="case-card">
+          <div class="case-type">National Social Media Campaign · 2025</div>
+          <div class="case-title">Canada Federal Election</div>
+          <div class="case-role">Digital Communications Manager · March–May 2025</div>
+          <p class="case-insight">"The substance was already there. The gap was between what the campaign knew and what audiences were ready to recognise as their own story."</p>
+          <p class="case-body">Policy-heavy messaging wasn't the problem. Misalignment was. In regions where economic identity pulls voters toward conservative positioning — even when their values don't — traditional persuasion fails because it speaks to the wrong register.<br><br>The strategy shifted from policy argument to narrative recognition: low-cognitive, high-recognition formats that met audiences in the tension between their values and their behaviour. The result was not immediate persuasion, but the kind of engagement that builds toward action — debate, participation, and shifting openness to alternative political narratives.</p>
+          <div class="case-outcomes">
+            <div class="outcome-item">
+              <div class="outcome-num">10M+</div>
+              <div class="outcome-label">People reached across Canada</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">20%</div>
+              <div class="outcome-label">Platform growth within the campaign period</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">↑</div>
+              <div class="outcome-label">Engagement among politically disengaged audiences in conservative regions</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">↑</div>
+              <div class="outcome-label">Openness to alternative political narratives in targeted communities</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-type">Regional Digital Media Platform · 2023–2025</div>
+          <div class="case-title">Alberta Digital News Platform</div>
+          <div class="case-role">Digital Communications Strategist · 2023–2025</div>
+          <p class="case-insight">"In a low-trust media environment, credibility isn't built through information. It's built through recognition — making audiences feel their reality is being reflected, not explained at them."</p>
+          <p class="case-body">Alberta's media landscape is consolidated. Centralized narratives fail to reflect local complexity — and audiences shaped by oil and gas dependency, geography, and economic identity don't respond to one-size messaging.<br><br>The platform was built as a live testing environment: segmented by economic context and geographic identity, with each narrative frame — healthcare, energy, regional autonomy — tested for resonance across different communities. The result was a platform that built real participation in regional political discourse, not just reach.</p>
+          <div class="case-outcomes">
+            <div class="outcome-item">
+              <div class="outcome-num">4×</div>
+              <div class="outcome-label">Audience growth in one quarter (500 → 2,000)</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">200+</div>
+              <div class="outcome-label">Visitors per article, consistently</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">1–2K</div>
+              <div class="outcome-label">Reactions on high-performing posts</div>
+            </div>
+            <div class="outcome-item">
+              <div class="outcome-num">500+</div>
+              <div class="outcome-label">Comments within 48 hours</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE WORK WITH -->
+  <section id="clients">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Who We Work With</span>
+        <div class="section-rule"></div>
+      </div>
+      <h2 class="section-title" style="margin-bottom: 12px;">Organisations where strategic communication shapes public understanding</h2>
+      <p class="section-desc" style="margin-bottom: 48px;">We partner with organisations where the gap between what they know and what their audiences act on is a strategic problem — not a content problem.</p>
+      <div class="clients-grid">
+        <div class="client-item">Think tanks</div>
+        <div class="client-item">Non-profit organisations</div>
+        <div class="client-item">Foundations</div>
+        <div class="client-item">Research organisations</div>
+        <div class="client-item">Advocacy coalitions</div>
+        <div class="client-item">Civic initiatives</div>
+        <div class="client-item">Mission-driven businesses</div>
+        <div class="client-item">Public-interest projects</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">About</span>
+        <div class="section-rule"></div>
+      </div>
+      <div class="about-grid">
+        <div>
+          <h2 class="section-title" style="margin-bottom: 32px;">Founded by Wita Yaemsuda</h2>
+          <div class="about-arc">
+            <div class="arc-step">
+              <div class="arc-label">Foundation</div>
+              <div class="arc-name">Journalist, Southeast Asia</div>
+            </div>
+            <div class="arc-step">
+              <div class="arc-label">Applied</div>
+              <div class="arc-name">Campaign & Comms Strategist</div>
+            </div>
+            <div class="arc-step">
+              <div class="arc-label">Now</div>
+              <div class="arc-name">Narrative Strategist, Canada & APAC</div>
+            </div>
+          </div>
+          <div class="about-text">
+            <p>Social Unwired is founded by Wita Yaemsuda, a strategic communications professional with experience across journalism, advocacy campaigns, regional media, and public-interest communications.</p>
+            <p>Drawing on a background in strategic communications and International Political Economy — and informed by early experience covering political and economic issues across Southeast Asia — Social Unwired combines audience insight, narrative strategy, and editorial thinking to help organisations communicate complex issues with greater clarity and confidence.</p>
+            <p>This work sits at the intersection of what organisations know and what their audiences are ready to hear. The gap between those two things is rarely a content problem. It's a narrative problem — and that's what we solve.</p>
+          </div>
+        </div>
+        <div>
+          <div class="expertise-label">Areas of Focus</div>
+          <ul class="expertise-list">
+            <li>Politics &amp; Governance</li>
+            <li>International Political Economy</li>
+            <li>AI &amp; Emerging Technologies</li>
+            <li>Climate &amp; Energy Transitions</li>
+            <li>Public Trust &amp; Civic Engagement</li>
+            <li>APAC / ASEAN Policy Contexts</li>
+          </ul>
+          <div class="expertise-label" style="margin-top:36px;">Expertise</div>
+          <ul class="expertise-list">
+            <li>Campaign Design</li>
+            <li>Message Testing</li>
+            <li>Multi-Platform Strategy</li>
+            <li>Strategic Storytelling</li>
+            <li>Policy Writing</li>
+            <li>Journalism</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section id="insights">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-label">Insights</span>
+        <div class="section-rule"></div>
+      </div>
+      <div class="insights-intro">
+        <div>
+          <h2 class="section-title">Ideas shape communication.<br />Communication shapes public understanding.</h2>
+        </div>
+        <div>
+          <p class="section-desc">Our Insights library brings together articles, practical guides, and strategic frameworks exploring communications, public trust, political economy, AI governance, climate, and Canada–Asia relations.</p>
+        </div>
+      </div>
+      <div class="insights-placeholder">
+        <div class="insight-item">
+          <div class="insight-category">AI Governance</div>
+          <div class="insight-title">Canada and India could shape a new AI order</div>
+          <p class="insight-desc">How two countries at different points in the AI value chain might find common ground on governance, infrastructure, and public understanding.</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-category">Strategic Communications</div>
+          <div class="insight-title">When policy-heavy messaging fails: a framework for narrative alignment</div>
+          <p class="insight-desc">Why the gap between what organisations know and what audiences act on is rarely a content problem — and what to do about it.</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-category">Political Economy</div>
+          <div class="insight-title">Energy identity and the limits of climate messaging in Alberta</div>
+          <p class="insight-desc">What two years of audience testing in Alberta's regional media landscape revealed about how economic identity shapes the reception of environmental narratives.</p>
+        </div>
+      </div>
+      <div class="insights-cta">
+        <a href="#" class="btn-ghost">Explore Insights →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="cta-section">
+      <p class="cta-eyebrow">Start a Conversation</p>
+      <h2 class="cta-headline">Have a communications challenge<br /><em>you'd like to discuss?</em></h2>
+      <p class="cta-sub">Whether you're exploring a new initiative or looking for a long-term strategic communications partner, we'd love to hear about your work.</p>
+      <a href="mailto:hello@socialunwired.com" class="cta-email">hello@socialunwired.com</a>
+      <div class="cta-actions">
+        <a href="mailto:hello@socialunwired.com" class="btn-light">Book the Audit — CAD 1,500 →</a>
+        <a href="mailto:hello@socialunwired.com" class="btn-ghost" style="border-color: rgba(255,255,255,0.12); color: rgba(245,240,232,0.4);">General enquiry</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAND ACKNOWLEDGEMENT -->
+  <div class="land-ack">
+    <div class="land-ack-inner">
+      <div class="land-ack-label">Land Acknowledgement</div>
+      <p class="land-ack-text">Social Unwired is based in Vancouver, British Columbia, on the traditional, ancestral, and unceded territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh (Squamish), and səlilwətaɬ (Tsleil-Waututh) Nations. We acknowledge their enduring stewardship of these lands and waters, and recognise that meaningful communication begins with listening, respect, and an understanding of the histories that continue to shape the communities we serve.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-logo">Social Unwired</span>
+      <span class="footer-copy">Strategic Communications · Narrative Strategy · Campaign Strategy · Policy-Informed Writing</span>
+    </div>
+  </footer>
+
+</body>
+</html>
