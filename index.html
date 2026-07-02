@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Social Unwired — Strategic Communications for Complex Issues</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after{ box-sizing:border-box; margin:0; padding:0; }
+
+  :root{
+    --parchment: #F5F0E8;
+    --ink:       #1C1C1E;
+    --violet:    #6B5B8C;
+    --violet-dark:#5A4A78;
+    --mauve:     #9E8FAA;
+    --warm-grey: #E8E2D9;
+    --muted:     #8A8277;
+    --white:     #FDFBF8;
+
+    --sp-8:8px; --sp-16:16px; --sp-32:32px; --sp-48:48px; --sp-96:96px;
+  }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'DM Sans', sans-serif;
+    font-weight:300;
+    font-size:17px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ text-decoration:none; color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 56px;
+  }
+
+  section{ padding:96px 0; }
+
+  h1, h2{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    color:var(--ink);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---------- SECTION DIVIDER / EYEBROW ---------- */
+  .section-divider{
+    display:flex;
+    align-items:center;
+    gap:var(--sp-16);
+    margin-bottom:var(--sp-48);
+  }
+  .divider-label{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--mauve);
+    white-space:nowrap;
+  }
+  .divider-rule{ flex:1; height:1px; background:var(--warm-grey); }
+
+  /* ---------- HEADLINES ---------- */
+  .headline{
+    font-size:52px;
+    margin-bottom:var(--sp-16);
+    max-width:900px;
+  }
+  .headline-italic{
+    font-family:'DM Serif Display', serif;
+    font-style:italic;
+    font-weight:400;
+    color:var(--violet);
+    font-size:52px;
+    line-height:1.1;
+    max-width:820px;
+    margin-bottom:var(--sp-32);
+  }
+
+  .lead{
+    font-size:17px;
+    font-weight:300;
+    color:var(--ink);
+    max-width:600px;
+    margin-bottom:var(--sp-16);
+  }
+  .lead-muted{
+    font-size:17px;
+    font-weight:300;
+    color:var(--muted);
+    max-width:600px;
+  }
+
+  /* ---------- BUTTONS ---------- */
+  .btn-row{
+    display:flex;
+    gap:var(--sp-16);
+    flex-wrap:wrap;
+    margin-top:var(--sp-48);
+  }
+  .btn{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:13px 24px;
+    display:inline-block;
+    transition:all 0.22s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--violet);
+    color:var(--white);
+  }
+  .btn-primary:hover{ background:var(--violet-dark); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid var(--warm-grey);
+  }
+  .btn-ghost:hover{ border-color:var(--violet); color:var(--violet); }
+  .btn-light{
+    background:var(--parchment);
+    color:var(--ink);
+  }
+  .btn-light:hover{ background:var(--white); }
+  .btn-inline{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--violet);
+    display:inline-block;
+    border-bottom:1px solid transparent;
+  }
+  .btn-inline:hover{ border-color:var(--violet); }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:100;
+    background:transparent;
+    transition:background 0.25s ease, box-shadow 0.25s ease;
+  }
+  nav.scrolled{
+    background:rgba(245,240,232,0.92);
+    backdrop-filter:blur(8px);
+    box-shadow:0 1px 0 var(--warm-grey);
+  }
+  .nav-inner{
+    max-width:1200px;
+    margin:0 auto;
+    padding:22px 56px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    row-gap:12px;
+  }
+  .logo{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:28px;
+    list-style:none;
+  }
+  .nav-links a{
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:14px;
+    color:var(--ink);
+    transition:color 0.2s ease;
+  }
+  .nav-links a:hover{ color:var(--violet); }
+  .nav-links li:last-child a{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    background:var(--violet);
+    color:var(--white);
+    padding:11px 20px;
+    transition:background 0.22s ease;
+  }
+  .nav-links li:last-child a:hover{ background:var(--violet-dark); }
+
+  /* ---------- HOME ---------- */
+  #home{
+    padding-top:calc(96px + 88px);
+  }
+
+  /* ---------- SERVICES ---------- */
+  .service-card{
+    background:var(--white);
+    border-top:2px solid var(--violet);
+    padding:var(--sp-48);
+    margin-bottom:2px;
+  }
+  .service-card h3{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    font-size:26px;
+    color:var(--ink);
+    margin-bottom:var(--sp-8);
+    line-height:1.15;
+  }
+  .service-card .tagline{
+    font-family:'DM Sans', sans-serif;
+    font-weight:500;
+    font-size:16px;
+    color:var(--ink);
+    margin-bottom:var(--sp-16);
+    max-width:760px;
+  }
+  .service-card p.desc{
+    font-size:15px;
+    font-weight:300;
+    color:var(--muted);
+    line-height:1.7;
+    max-width:760px;
+    margin-bottom:var(--sp-16);
+  }
+  .fit-box{
+    background:var(--parchment);
+    padding:28px 32px;
+    max-width:640px;
+    margin:var(--sp-16) 0 var(--sp-32);
+  }
+  .fit-box .fit-title{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--mauve);
+    padding-bottom:12px;
+    margin-bottom:14px;
+    border-bottom:1px solid var(--warm-grey);
+  }
+  .fit-box ul{ list-style:none; }
+  .fit-box li{
+    font-size:14px;
+    font-weight:300;
+    color:var(--ink);
+    margin-bottom:10px;
+    padding-left:22px;
+    position:relative;
+  }
+  .fit-box li::before{
+    content:"→";
+    position:absolute;
+    left:0;
+    color:var(--violet);
+    font-family:'Space Mono', monospace;
+  }
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:var(--sp-8);
+    margin:var(--sp-16) 0 var(--sp-32);
+  }
+  .tag{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:5px 9px;
+    border:1px solid var(--warm-grey);
+    color:var(--muted);
+  }
+  .service-card .card-cta{ display:inline-block; }
+
+  /* ---------- APPROACH GRID ---------- */
+  .approach-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:2px;
+  }
+  .approach-card{
+    background:var(--white);
+    border-top:2px solid var(--violet);
+    padding:var(--sp-48);
+  }
+  .approach-card h3{
+    font-family:'DM Serif Display', serif;
+    font-weight:400;
+    font-size:20px;
+    color:var(--ink);
+    margin-bottom:var(--sp-8);
+    line-height:1.25;
+  }
+  .approach-card p{
+    font-size:13px;
+    font-weight:300;
+    color:var(--muted);
+    line-height:1.65;
+  }
+
+  /* ---------- ABOUT ---------- */
+  #about .lead{ max-width:640px; }
+
+  /* ---------- CONTACT (DARK) ---------- */
+  #contact{
+    background:var(--ink);
+    color:var(--parchment);
+  }
+  #contact .divider-label{ color:var(--mauve); }
+  #contact .divider-rule{ background:rgba(245,240,232,0.14); }
+  #contact .headline{ color:var(--parchment); }
+  #contact .headline-italic{ color:var(--violet); }
+  #contact .lead{ color:rgba(245,240,232,0.72); max-width:600px; }
+  .email-line{
+    font-family:'Space Mono', monospace;
+    font-size:13px;
+    letter-spacing:0.08em;
+    color:var(--mauve);
+    margin-top:var(--sp-16);
+  }
+
+  .land-ack{
+    margin-top:var(--sp-96);
+    padding-top:var(--sp-32);
+    border-top:1px solid rgba(245,240,232,0.14);
+  }
+  .land-ack .ack-label{
+    font-family:'Space Mono', monospace;
+    font-size:9px;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:rgba(245,240,232,0.25);
+    margin-bottom:var(--sp-16);
+  }
+  .land-ack p{
+    font-size:14px;
+    font-weight:300;
+    color:rgba(245,240,232,0.3);
+    line-height:1.75;
+    max-width:800px;
+    margin-bottom:var(--sp-16);
+  }
+  .land-ack p:last-child{ margin-bottom:0; }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--ink);
+    text-align:center;
+    padding:32px 24px;
+    border-top:1px solid rgba(245,240,232,0.1);
+  }
+  footer span{
+    font-family:'Space Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:rgba(245,240,232,0.35);
+  }
+
+  /* =========================================================
+     RESPONSIVE — matches brand guide: 900px = single column,
+     56px→24px page padding, 96px→64px section padding,
+     48px→32px card padding. Nav stays a row (no hamburger).
+     ========================================================= */
+
+  @media (max-width: 900px){
+    .wrap{ padding:0 24px; }
+    .nav-inner{ padding:18px 24px; }
+    section{ padding:64px 0; }
+    #home{ padding-top:calc(64px + 120px); }
+
+    .headline{ font-size:38px; }
+    .headline-italic{ font-size:38px; }
+    .lead, .lead-muted{ font-size:16px; max-width:100%; }
+
+    .service-card{ padding:32px; }
+    .service-card h3{ font-size:22px; }
+
+    .approach-grid{ grid-template-columns:1fr; }
+    .approach-card{ padding:32px; }
+
+    .btn-row{ margin-top:32px; }
+
+    .nav-links{ gap:18px; row-gap:12px; }
+    .nav-links a{ font-size:13px; }
+  }
+
+  @media (max-width: 600px){
+    body{ font-size:15px; }
+    .wrap{ padding:0 20px; }
+    .nav-inner{ padding:16px 20px; }
+    section{ padding:56px 0; }
+    #home{ padding-top:calc(56px + 150px); }
+
+    .headline{ font-size:30px; }
+    .headline-italic{ font-size:28px; margin-bottom:24px; }
+    .lead, .lead-muted{ font-size:15px; }
+
+    .divider-label{ font-size:9px; letter-spacing:0.16em; }
+    .section-divider{ gap:10px; margin-bottom:32px; }
+
+    .service-card{ padding:24px; }
+    .service-card h3{ font-size:20px; }
+    .fit-box{ padding:22px 20px; }
+    .tag-row{ gap:6px; }
+
+    .approach-card{ padding:24px; }
+
+    .btn{ width:100%; text-align:center; }
+    .btn-row{ flex-direction:column; gap:12px; }
+
+    .nav-inner{ justify-content:center; text-align:center; }
+    .logo{ width:100%; text-align:center; margin-bottom:4px; }
+    .nav-links{ justify-content:center; width:100%; gap:14px 16px; }
+    .nav-links a{ font-size:12px; }
+    .nav-links li:last-child a{ padding:9px 16px; }
+
+    .land-ack{ margin-top:64px; padding-top:24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <div class="nav-inner">
+    <a href="#home" class="logo">Social Unwired</a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#approach">Our Approach</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Start a Conversation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ================= HOME ================= -->
+<section id="home">
+  <div class="wrap">
+    <div class="section-divider">
+      <span class="divider-label">Strategic Communications · Narrative &amp; Campaign Strategy · Audience Research</span>
+      <div class="divider-rule"></div>
+    </div>
+    <h1 class="headline">Strategic Communications for Complex Issues</h1>
+    <p class="headline-italic">Your campaign deserves an audience that acts on it.</p>
+    <p class="lead">Social Unwired is a strategic communications practice that helps organisations communicate complex public issues with clarity, credibility, and purpose.</p>
+    <p class="lead-muted">We work with organisations navigating policy, climate, civic engagement, and other issues where communication influences public understanding, stakeholder trust, and decision-making. Whether you're developing a new initiative, responding to emerging issues, or strengthening your public voice, we help turn complexity into communication that people understand, trust, and act on.</p>
+    <div class="btn-row">
+      <a href="mailto:hello@socialunwired.com" class="btn btn-primary">Start a Conversation →</a>
+      <a href="#services" class="btn btn-ghost">Explore Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services">
+  <div class="wrap">
+    <div class="section-divider">
+      <span class="divider-label">Services</span>
+      <div class="divider-rule"></div>
+    </div>
+    <h2 class="headline">Strategic communications for complex issues</h2>
+    <p class="lead-muted" style="margin-bottom:64px;">Every engagement starts with understanding the landscape. We develop communication that aligns organisational goals with what audiences are ready to hear.</p>
+
+    <div class="service-card">
+      <h3>Strategic Communications Audit</h3>
+      <p class="tagline">Understand what's working, what's not, and where communication is losing momentum.</p>
+      <p class="desc">The Strategic Communications Audit provides an independent assessment of your current communications across messaging, channels, audiences, and organisational alignment. The outcome is a clear set of priorities and practical recommendations to strengthen your communications strategy.</p>
+      <div class="fit-box">
+        <p class="fit-title">This audit is for you if</p>
+        <ul>
+          <li>Stakeholders engage with your work but don't act on it</li>
+          <li>Your message is doing too much expert-facing work</li>
+          <li>Campaigns feel inconsistent across channels or teams</li>
+          <li>You want to know what to fix in the next 90 days</li>
+        </ul>
+      </div>
+      <div class="tag-row">
+        <span class="tag">Communications Review</span>
+        <span class="tag">Audience Assessment</span>
+        <span class="tag">Messaging Review</span>
+        <span class="tag">Channel Evaluation</span>
+        <span class="tag">Strategic Recommendations</span>
+      </div>
+      <a href="mailto:hello@socialunwired.com" class="btn-inline card-cta">Start a Conversation →</a>
+    </div>
+
+    <div class="service-card">
+      <h3>Strategic Communications Strategy</h3>
+      <p class="tagline">Build communication around strategy, not assumptions.</p>
+      <p class="desc">Every engagement begins by understanding the landscape, identifying audience needs, and developing communication that aligns organisational goals with public understanding.</p>
+      <div class="tag-row">
+        <span class="tag">Narrative Strategy</span>
+        <span class="tag">Audience Segmentation</span>
+        <span class="tag">Landscape &amp; Competitor Analysis</span>
+        <span class="tag">Message Architecture</span>
+        <span class="tag">Stakeholder Communications</span>
+        <span class="tag">Executive Communications</span>
+        <span class="tag">Communications Planning</span>
+      </div>
+      <a href="mailto:hello@socialunwired.com" class="btn-inline card-cta">Start a Conversation →</a>
+    </div>
+
+    <div class="service-card">
+      <h3>Campaign Strategy</h3>
+      <p class="desc">Campaigns require more than content. They require a clear strategy, a shared narrative, and communication that remains consistent from planning through execution.</p>
+      <div class="tag-row">
+        <span class="tag">Campaign Strategy</span>
+        <span class="tag">Campaign Messaging</span>
+        <span class="tag">Audience Journey Mapping</span>
+        <span class="tag">Editorial Planning</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Public Engagement Strategy</span>
+        <span class="tag">Measurement Frameworks</span>
+      </div>
+      <a href="mailto:hello@socialunwired.com" class="btn-inline card-cta">Start a Conversation →</a>
+    </div>
+
+    <div class="service-card">
+      <h3>Project Strategy &amp; Delivery</h3>
+      <p class="desc">Strong ideas need strong execution. Whether you're launching a new program, building a cross-functional team, or developing a multi-partner initiative, we help establish the systems that keep projects aligned, accountable, and moving forward.</p>
+      <div class="tag-row">
+        <span class="tag">Project Scoping</span>
+        <span class="tag">Project Charters</span>
+        <span class="tag">Governance and Decision-Making</span>
+        <span class="tag">Roles and Responsibilities</span>
+        <span class="tag">Project Timelines and Implementation</span>
+        <span class="tag">Workshop Facilitation</span>
+        <span class="tag">Cross-Team Coordination</span>
+      </div>
+      <a href="mailto:hello@socialunwired.com" class="btn-inline card-cta">Start a Conversation →</a>
+    </div>
+
+    <div class="service-card" style="margin-bottom:0;">
+      <h3>Advisory</h3>
+      <p class="tagline">Strategic communications support for organisations navigating growth, change, or complex public issues.</p>
+      <p class="desc">Whether you're preparing for a major announcement, reviewing messaging, strengthening internal alignment, or responding to emerging issues, Social Unwired provides ongoing strategic advice tailored to your organisation.</p>
+      <a href="mailto:hello@socialunwired.com" class="btn-inline card-cta">Start a Conversation →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR APPROACH ================= -->
+<section id="approach">
+  <div class="wrap">
+    <div class="section-divider">
+      <span class="divider-label">Our Approach</span>
+      <div class="divider-rule"></div>
+    </div>
+    <h2 class="headline" style="margin-bottom:64px;">Every organisation is different. Our approach remains consistent.</h2>
+    <div class="approach-grid">
+      <div class="approach-card">
+        <h3>Understand the landscape</h3>
+        <p>We begin by understanding the broader context, organisational priorities, audiences, and communication challenges.</p>
+      </div>
+      <div class="approach-card">
+        <h3>Develop the strategy</h3>
+        <p>We identify the narrative challenge, define communication priorities, and develop a strategy that aligns messaging with organisational goals.</p>
+      </div>
+      <div class="approach-card">
+        <h3>Support implementation</h3>
+        <p>From strategic advice and campaign development to writing and communications planning, we provide support that fits the scale and needs of your organisation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ABOUT US ================= -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-divider">
+      <span class="divider-label">About Social Unwired</span>
+      <div class="divider-rule"></div>
+    </div>
+    <h2 class="headline">Ideas shape communication. Communication shapes public understanding.</h2>
+    <p class="lead">Social Unwired combines audience insight, narrative strategy, and editorial thinking to help organisations communicate complex issues with greater clarity and confidence.</p>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="section-divider">
+      <span class="divider-label">Start a Conversation</span>
+      <div class="divider-rule"></div>
+    </div>
+    <h2 class="headline">Have a communications challenge</h2>
+    <p class="headline-italic">you'd like to discuss?</p>
+    <p class="lead">Whether you're exploring a new initiative or looking for a long-term strategic communications partner, we'd love to hear about your work.</p>
+    <p class="email-line">hello@socialunwired.com</p>
+    <div class="btn-row">
+      <a href="mailto:hello@socialunwired.com" class="btn btn-primary">Start a Conversation →</a>
+      <a href="#services" class="btn btn-light">Explore Services</a>
+    </div>
+
+    <div class="land-ack">
+      <p class="ack-label">Land Acknowledgement</p>
+      <p>Social Unwired is based in Vancouver, British Columbia, on the traditional, ancestral, and unceded territories of the xʷməθkʷəy̓əm (Musqueam), Sḵwx̱wú7mesh (Squamish), and səlilwətaɬ (Tsleil-Waututh) Nations.</p>
+      <p>We acknowledge their enduring stewardship of these lands and waters, and recognise that meaningful communication begins with listening, respect, and an understanding of the histories that continue to shape the communities we serve.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Social Unwired — All Rights Reserved</span>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+</script>
+
+</body>
+</html>
